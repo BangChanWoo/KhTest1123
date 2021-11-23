@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -18,6 +19,7 @@ import com.myconpany.myapp09.member.model.vo.Member;
 
 
 @Controller
+@SessionAttributes("msg")
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
@@ -46,8 +48,13 @@ public class MemberController {
 				String msg = "회원가입이 완료되었습니다.";
 				rttr.addFlashAttribute("msg", msg);
 				mv.setViewName("redirect:/memberinsert");
-			}else {
+			}else if (result==0){
 				String msg = "회원가입에 실패했습니다.";
+				rttr.addFlashAttribute("msg", msg);
+				mv.setViewName("redirect:/memberinsert");
+			}
+			else {
+				String msg = "회원가입에 오류가 발생하였습니다.";
 				rttr.addFlashAttribute("msg", msg);
 				mv.setViewName("redirect:/memberinsert");
 			}
