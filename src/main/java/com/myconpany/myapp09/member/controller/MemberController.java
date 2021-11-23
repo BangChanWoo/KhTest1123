@@ -2,6 +2,7 @@ package com.myconpany.myapp09.member.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,7 @@ public class MemberController {
 			result = memberService.insertMember(member);
 			System.out.println(result);
 			if(result==1) {
+				HttpSession session = request.getSession();
 				String msg = "회원가입이 완료되었습니다.";
 				rttr.addFlashAttribute("msg", msg);
 				mv.setViewName("redirect:/memberinsert");
